@@ -4,8 +4,12 @@ SCRIPTPATH=$( cd "$(dirname "$0")" ; pwd -P )
 MELPA_REPO="${SCRIPTPATH}/../.."
 cd "${MELPA_REPO}"
 
+unset STABLE
 /usr/bin/python ${MELPA_REPO}/scripts/process_log.py
 
-/usr/sbin/logrotate -s ${MELPA_REPO}/../var/lib/logrotate/status ${MELPA_REPO}/cfg/logrotate
+export STABLE=t
+/usr/bin/python ${MELPA_REPO}/scripts/process_log.py
+
+/usr/sbin/logrotate -s ${MELPA_REPO}/service/log/status ${MELPA_REPO}/service/log/logrotate
 
 sleep 6h
